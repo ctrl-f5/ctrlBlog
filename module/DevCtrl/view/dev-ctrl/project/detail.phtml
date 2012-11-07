@@ -1,0 +1,111 @@
+<?php /** @var $this \Ctrl\View\PhpView */ ?>
+<?php /** @var $project \DevCtrl\Domain\Project\Project */ ?>
+<?php $project = $this->project ?>
+<?php echo $this->pageTitle('Project', $this->project->getName()); ?>
+<?php $this->page = 'info'; ?>
+<?php echo $this->render('dev-ctrl/project/partial/project-tabs.phtml'); ?>
+
+<div class="btn-group" style="float: right">
+    <a class="btn" href="#">edit</a>
+    <a class="btn" href="<?php echo $this->url('default', array(
+        'controller' => 'project',
+        'action' => 'index',
+    )); ?>">view all projects</a>
+</div>
+<p class="well well-small" style="display: inline-block; max-width: 75%"><?php echo nl2br($project->getDescription()); ?></p>
+<?php echo $this->pageTitle('Overview', null, array('level' => 1)); ?>
+<div class="row-fluid well" style="padding-right: 0; padding-left: 0;">
+    <div class="row-fluid">
+        <div class="span2" style="text-align: center">
+            <?php $percentageCompleted = $project->getProgress(); ?>
+                <button class="btn"><canvas class="ctrljs-3stage-gauge" guage-value="<?php echo $percentageCompleted; ?>" width="60" height="60"></canvas></button>
+        </div>
+        <div class="span10" style="text-align: left">
+            <div class="row-fluid">
+                <div class="span2" style="text-align: right">
+                    <strong>name: </strong>
+                </div>
+                <div class="span4">
+                    <a href="<?php echo $this->url('default/id', array(
+                        'controller' => 'project',
+                        'action' => 'detail',
+                        'id' => $project->getId(),
+                    ));?>"><?php echo $project->getName(); ?></a>
+                </div>
+                <div class="span2" style="text-align: right">
+                    <strong>status: </strong>
+                </div>
+                <div class="span4">
+                    <span class="label label-success">healthy</span>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span2" style="text-align: right">
+                    <strong>current version: </strong>
+                </div>
+                <div class="span4">
+                    <?php echo $project->getVersion()->getVersion().' '.$project->getVersion()->getLabel(); ?>
+                </div>
+                <div class="span2" style="text-align: right">
+                    <strong>item count: </strong>
+                </div>
+                <div class="span4">
+                    <?php echo count($project->getBacklog()); ?>
+                </div>
+            </div>
+            <div class="row-fluid">
+                <div class="span2" style="text-align: right">
+                    <strong>people involved: </strong>
+                </div>
+                <div class="span4">
+                    4
+                </div>
+                <div class="span2" style="text-align: right">
+                    <strong>last activity: </strong>
+                </div>
+                <div class="span4">
+                    today
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php echo $this->pageTitle('Milestones', null, array('level' => 3)); ?>
+<p></p>
+<p></p>
+<div class="">
+    <table class="table table-striped">
+        <tr>
+            <th>name</th>
+            <th>description</th>
+            <th>items</th>
+            <th>actions</th>
+        </tr>
+        <?php foreach ($project->getMilestones() as $ms): ?>
+        <tr>
+            <td><?php echo $ms->getLabel(); ?></td>
+            <td><?php echo $ms->getDescription(); ?></td>
+            <td><?php echo count($ms->getBacklog()); ?></td>
+            <td><a class="btn btn-info" href="<?php echo $this->url('default/id', array(
+                'controller' => 'milestone',
+                'action' => 'detail',
+                'id' => $ms->getId()
+            )); ?>">detail</a></td>
+        </tr>
+        <?php endforeach; ?>
+    </table>
+</div>
+
+<?php echo $this->pageTitle('Item overview', null, array('level' => 1)); ?>
+<?php echo $this->pageTitle('Items assigned to me', null, array('level' => 3)); ?>
+<p></p>
+<?php foreach ($userItems as $i): ?>
+<?php echo $this->partial('dev-ctrl/item-widget-row', array('item' => $i)); ?>
+<?php endforeach; ?>
+
+<?php echo $this->pageTitle('Last updated items', null, array('level' => 3)); ?>
+<p></p>
+<?php foreach ($lastUpdatedItems as $i): ?>
+<?php echo $this->partial('dev-ctrl/item-widget-row', array('item' => $i)); ?>
+<?php endforeach; ?>

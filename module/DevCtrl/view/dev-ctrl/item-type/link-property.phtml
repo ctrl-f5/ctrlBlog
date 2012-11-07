@@ -1,0 +1,76 @@
+<?php use DevCtrl\Domain\Item\Property\Property; ?>
+<?php $itemType = $this->itemType; /** @var $itemType \DevCtrl\Domain\Item\Type\Type */ ?>
+<?php $property = $this->property; /** @var $property Property */ ?>
+<?php $defaultProviders = $this->defaultProviders; /** @var $defaultProviders \DevCtrl\Domain\Item\Property\DefaultProvider\ProviderInterface[] */ ?>
+<h1>Linking property <?php echo $property->getName(); ?>
+    <small>to <strong><?php echo $itemType->getName(); ?></strong></small>
+</h1>
+
+<form class="form-horizontal ctrljs-validate" method="post" id="item-type-state-form" action="<?php echo $this->url('type_property_link', array(
+    'controller' => 'item-type',
+    'action' => 'link-property',
+    'type' => $itemType->getId(),
+    'property' => $property->getId(),
+)); ?>">
+    <fieldset>
+        <legend>Configure the item type property relation</legend>
+        <div class="control-group">
+            <label class="control-label">is required</label>
+            <div class="controls">
+                <input type="checkbox" name="required" />
+            </div>
+        </div>
+        <?php if (($property->getType()->supportsDefaultValue())): ?>
+            <div class="control-group">
+                <label class="control-label">default provider</label>
+                <div class="controls">
+                    <select class="input-large required" name="default-provider">
+                        <?php foreach ($defaultProviders as $k => $p): ?>
+                        <?php if ($p->requiresValuesProvider() && !$property->getType()->supportsProvidingValues()) continue; ?>
+                        <option><?php echo $p->getName(); ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+            </div>
+            <?php foreach ($defaultProviders as $k => $p):?>
+                <?php $name = $p->getName(); ?>
+                <?php if (!$p->requiresConfiguration() ||
+                      $property->getValuesProvider() && !$property->getValuesProvider()->supportsDefaultValue()
+                      && ($p->requiresValuesProvider() && !$property->getType()->supportsProvidingValues())
+                      ) continue; ?>
+                    <div class="control-group">
+                        <label class="control-label">provider config: <?php echo $p->getName()?></label>
+                        <div class="controls">
+                            <?php switch ($property->getType()->getRepresentedPorpertyType()):
+                            case 'string':
+                            case 'integer': ?>
+                                <input type="text" class="input-xxlarge" name="default-provider-config-<?php echo $name; ?>" />
+                                <?php break; ?>
+                                <?php
+                            case 'boolean': ?>
+                                <input type="checkbox" name="default-provider-config-<?php echo $name; ?>" />
+                                <?php break; ?>
+                                <?php
+                            case 'select': ?>
+                                <select class="input-large required" name="default-provider-config-<?php echo $name; ?>">
+                                    <?php foreach ($property->getValuesProvider()->getValues($property, $property->getValuesProviderConfig()) as $kk => $v): ?>
+                                    <option value="<?php echo $k; ?>"><?php echo $v; ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                                <?php break; ?>
+                            <?php endswitch; ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        <div class="form-actions">
+            <input type="submit" class="btn btn-primary" value="next">
+            <a class="btn" href="<?php echo $this->url('default/id', array(
+                'controller' => 'item-type',
+                'action' => 'select-link-property',
+                'id' => $itemType->getId(),
+            )); ?>">cancel</a>
+        </div>
+    </fieldset>
+
+</form>

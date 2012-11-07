@@ -1,0 +1,7 @@
+<?php /** @var $this \Ctrl\View\PhpView */
+echo $this->pageTitle('New', 'state list');
+
+echo $this->ctrlForm()->createForm(
+    $form->setLabel('Please make your changes'),
+    true
+);

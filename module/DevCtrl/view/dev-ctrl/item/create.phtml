@@ -1,0 +1,7 @@
+<?php
+echo $this->pageTitle('New item', $project->getName());
+
+echo $this->ctrlForm()->createForm(
+    $form->setLabel('please provide some info'),
+    true
+);

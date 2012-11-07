@@ -1,0 +1,19 @@
+<ul class="nav nav-tabs">
+    <li<?php if ($this->page == 'info') echo ' class="active"'; ?>><a href="<?php echo $this->url('default/id', array(
+        'controller' => 'item-type',
+        'action' => 'detail',
+        'id' => $this->itemType->getId()
+    )); ?>">Info</a></li>
+    <li<?php if ($this->page == 'properties') echo ' class="active"'; ?>><a href="<?php echo $this->url('default/id', array(
+        'controller' => 'item-type',
+        'action' => 'properties',
+        'id' => $this->itemType->getId()
+    )); ?>">Properties</a></li>
+    <?php if ($this->itemType->supportsStates()): ?>
+    <li<?php if ($this->page == 'states') echo ' class="active"'; ?>><a href="<?php echo $this->url('default/id', array(
+        'controller' => 'item-type',
+        'action' => 'states',
+        'id' => $this->itemType->getId()
+    )); ?>">States</a></li>
+    <?php endif; ?>
+</ul>

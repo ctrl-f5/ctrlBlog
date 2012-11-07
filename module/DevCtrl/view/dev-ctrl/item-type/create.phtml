@@ -1,0 +1,28 @@
+<?php
+
+use Ctrl\Form\Form;
+
+/** @var $form Form */
+$form = $this->form;
+
+echo $this->pageTitle('New item type');
+
+echo $this->ctrlForm()->start($form->setLabel('Please provide some info'));
+
+foreach ($form->getElements() as $e) {
+    $containerOptions = array();
+    if (0 === strpos($e->getName(), 'type-config')) {
+        $containerOptions['class'] = array(
+            $e->getAttribute('data-name'),
+            'type-config'
+        );
+    }
+    echo $this->ctrlFormInput($e, $containerOptions);
+}
+
+echo $this->ctrlFormActions(array(
+    $this->ctrlButton('submit', array('value' => 'save'), 'primary'),
+    $this->ctrlButton('link', array('value' => 'cancel', 'href' => $form->getReturnUrl()))
+));
+
+echo $this->ctrlForm()->end($form);

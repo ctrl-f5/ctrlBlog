@@ -1,0 +1,32 @@
+<ul class="nav nav-tabs">
+    <li class="primary"><a href="<?php echo $this->url('default/id', array(
+        'controller' => 'project',
+        'action' => 'detail',
+        'id' => $this->item->getProject()->getId()
+    )); ?>"><span class="icon icon-chevron-up"></span> Got to project</a></li>
+    <li<?php if ($this->itemTab == 'detail') echo ' class="active"'; ?>><a href="<?php echo $this->url('default/id', array(
+        'controller' => 'item',
+        'action' => 'detail',
+        'id' => $this->item->getId()
+    )); ?>">Detail</a></li>
+    <li<?php if ($this->itemTab == 'assigned-users') echo ' class="active"'; ?>><a href="<?php echo $this->url('default/id', array(
+        'controller' => 'item',
+        'action' => 'assigned-users',
+        'id' => $this->item->getId()
+    )); ?>">Assigned users <span class="label label-info"><?php echo count($this->item->getAssignedUsers()); ?></span></a></li>
+    <li<?php if ($this->itemTab == 'states') echo ' class="active"'; ?>><a href="<?php echo $this->url('default/id', array(
+        'controller' => 'item-type',
+        'action' => 'states',
+        'id' => $this->item->getId()
+    )); ?>">Comments <span class="label">0<?php //echo count($this->item->getAssignedUsers()); ?></span></a></li>
+    <li<?php if ($this->itemTab == 'states') echo ' class="active"'; ?>><a href="<?php echo $this->url('default/id', array(
+        'controller' => 'item-type',
+        'action' => 'states',
+        'id' => $this->item->getId()
+    )); ?>">Attachments <span class="label">0<?php //echo count($this->item->getAssignedUsers()); ?></span></a></li>
+    <li<?php if ($this->itemTab == 'edit') echo ' class="active"'; ?>><a href="<?php echo $this->url('default/id', array(
+        'controller' => 'item',
+        'action' => 'edit',
+        'id' => $this->item->getId()
+    )); ?>">edit</a></li>
+</ul>
