@@ -3,8 +3,8 @@ return array(
     'modules' => array(
         'DoctrineModule',
         'DoctrineORMModule',
+        'Ctrl\Blog',
         'Ctrl\Module\Auth',
-        'DevCtrl',
         'Ctrl'
     ),
     'module_listener_options' => array(
@@ -12,7 +12,7 @@ return array(
             'config/autoload/{,*.}{global,local}.php',
         ),
         'module_paths' => array(
-            './module',
+            'Ctrl\Blog' => './module/CtrlBlog/',
             './vendor',
             'Ctrl\Module\Auth' => './vendor/ctrl-f5/ctrlAuth/',
             'Ctrl' => './vendor/ctrl-f5/ctrllib/',

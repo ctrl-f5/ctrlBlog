@@ -1,0 +1,7 @@
+<?php
+echo $this->pageTitle('Edit item', $article->getTitle());
+
+echo $this->ctrlForm()->createForm(
+    $form->setLabel('Please make your changes'),
+    true
+);
