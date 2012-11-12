@@ -1,41 +1,26 @@
-<?php $items = $this->items; /** @var $items \DevCtrl\Domain\Item\Item[] */ ?>
-<?php $types = $this->itemTypes; /** @var $types \DevCtrl\Domain\Item\Type\Type[] */ ?>
-<?php echo $this->pageTitle('Items'); ?>
+<?php $articles = $this->articles; /** @var $articles \Ctrl\Blog\Domain\Article[] */ ?>
+<?php echo $this->pageTitle('Articles'); ?>
 <div class="btn-group">
-    <a class="btn dropdown-toggle btn-primary" data-toggle="dropdown" href="#">
-        New item
-        <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-        <?php foreach ($types as $t): ?>
-        <li><a href="<?php echo $this->url('item_create', array(
-            'type' => $t->getId()
-        )); ?>"><?php echo $t->getName(); ?></a></li>
-        <?php endforeach; ?>
-    </ul>
+    <a class="btn btn-primary" data-toggle="dropdown" href="#">New article</a>
 </div>
 <p></p>
 <div class="">
     <table class="table table-striped">
         <tr>
             <th>id</th>
-            <th>name</th>
-            <th>progress</th>
-            <th>state</th>
+            <th>title</th>
             <th>actions</th>
         </tr>
-        <?php foreach ($items as $i): ?>
+        <?php foreach ($articles as $a): ?>
         <tr>
-            <td><?php echo $i->getId(); ?></td>
-            <td><?php echo $i->getTitle(); ?></td>
-            <td><?php echo $i->getItemType()->supportsTiming() ?></td>
-            <td><?php echo $i->getItemType()->supportsStates() ? $i->getState()->getLabel() : ''; ?></td>
+            <td><?php echo $a->getId(); ?></td>
+            <td><?php echo $a->getTitle(); ?></td>
             <td>
                 <?php echo $this->ctrlButton('link', array('value' => 'detail',
                 'href' => $this->url('default/id', array(
-                    'controller' => 'item',
-                    'action' => 'detail',
-                    'id' => $i->getId()
+                    'controller' => 'article',
+                    'action' => 'edit',
+                    'id' => $a->getId()
                 ))), 'info') ?>
         </tr>
         <?php endforeach; ?>

@@ -17,19 +17,8 @@ class ArticleService extends \Ctrl\Service\AbstractDomainModelService
 
     public function getForm(Article $article = null)
     {
-        $form = new Form('article');
-
-        $input = new TextInput('title');
-        $input->setLabel('title');
-        if ($article) $input->setValue($article->getTitle());
-        $form->add($input);
-
-        $input = new TextareaInput('content');
-        $input->setLabel('content');
-        if ($article) $input->setValue($article->getContent());
-        $form->add($input);
-
-        $form->setInputFilter($this->getModelInputFilter($article));
+        $form = new \Ctrl\Blog\Form\Article\Edit('article');
+        if ($article) $form->loadModel($article);
 
         return $form;
     }

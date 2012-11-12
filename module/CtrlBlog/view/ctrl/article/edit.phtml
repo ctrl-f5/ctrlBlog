@@ -1,7 +1,21 @@
 <?php
 echo $this->pageTitle('Edit item', $article->getTitle());
 
+/** @var $elems \Ctrl\Form\Element\Element[] */
+$elems = $form->getElements();
+$content = $elems[\Ctrl\Blog\Form\Article\Edit::ELEM_CONTENT];
+$content->setAttribute('id', 'article-edit-content');
+$content->setAttribute('rows', '25');
 echo $this->ctrlForm()->createForm(
     $form->setLabel('Please make your changes'),
     true
 );
+?>
+
+<div id="article-edit-content-representation"></div>
+
+<script type="text/javascript">
+$(function () {
+
+});
+</script>
