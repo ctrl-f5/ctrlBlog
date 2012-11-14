@@ -70,7 +70,7 @@ return array(
     ),
     'service_manager' => array(
         'factories' => array(
-            'PropertyTypeLoader'        => 'DevCtrl\Domain\Item\Property\Type\TypeLoaderFactory',
+            //'PropertyTypeLoader'        => 'DevCtrl\Domain\Item\Property\Type\TypeLoaderFactory',
         ),
     ),
     'view_manager' => array(
@@ -89,6 +89,11 @@ return array(
             __DIR__ . '/../view',
         ),
     ),
+    'acl' => array(
+        'resources' => array(
+            //'BlogResources' => 'Ctrl\Blog\Permissions\ModuleResources'
+        )
+    ),
     'doctrine' => array(
         'driver' => array(
             'ctrl-blog_driver' => array(
@@ -103,4 +108,5 @@ return array(
             )
         ),
     )
+
 );

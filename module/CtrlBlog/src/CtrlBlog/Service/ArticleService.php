@@ -15,10 +15,10 @@ class ArticleService extends \Ctrl\Service\AbstractDomainModelService
 {
     protected $entity = 'Ctrl\Blog\Domain\Article';
 
-    public function getForm(Article $article = null)
+    public function getForm(Article $user = null)
     {
         $form = new \Ctrl\Blog\Form\Article\Edit('article');
-        if ($article) $form->loadModel($article);
+        if ($user) $form->loadModel($user);
 
         return $form;
     }
