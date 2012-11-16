@@ -1,4 +1,4 @@
-DevCtrl
+CtrlBlog
 =======================
 
 Installation
@@ -9,8 +9,8 @@ Composer
 clone from git and execute composer.phar, this will install all dependencies
 
     cd /my/project/dir
-    git clone git://github.com/ctrl-f5/DevCtrl.git
-    cd DevCtrl
+    git clone git://github.com/ctrl-f5/ctrlBlog.git
+    cd ctrlBlog
     php composer.phar install
 
 Install database
