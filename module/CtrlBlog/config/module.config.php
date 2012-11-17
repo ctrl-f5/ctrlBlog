@@ -1,6 +1,6 @@
 <?php
 
-namespace DevCtrl;
+namespace Ctrl\Blog;
 
 return array(
     'router' => array(
@@ -100,7 +100,7 @@ return array(
             'ctrl-blog_driver' => array(
                 'class' => 'Doctrine\ORM\Mapping\Driver\XmlDriver',
                     'cache' => 'array',
-                    'paths' => array(__DIR__.'/../src/'.__NAMESPACE__.'/Domain', __DIR__.'/entities')
+                    'paths' => array(__DIR__.'/../src/CtrlBlog/Domain', __DIR__.'/entities')
             ),
             'orm_default' => array(
                 'drivers' => array(

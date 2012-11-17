@@ -73,7 +73,7 @@ class Module
     {
         $domainServiceLoader = $serviceManager->get('DomainServiceLoader');
         /** @var $authUserService \Ctrl\Module\Auth\Service\UserService */
-        $authUserService = $domainServiceLoader->get('AuthUser');
+        $authUserService = $domainServiceLoader->get('CtrlAuthUser');
         $authUserService->getEventManager()->attach(\Ctrl\Module\Auth\Service\UserService::EVENT_ON_LOGIN, function ($e) use ($domainServiceLoader) {
             /** @var $authUser \Ctrl\Module\Auth\Domain\User */
             $authUser = $e->getParam('user');

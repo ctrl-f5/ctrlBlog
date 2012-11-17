@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<project name="DevCtrl" default="db-reload">
+<project name="CtrlBlog" default="db-reload">
 
     <!-- Sets the DSTAMP, TSTAMP and TODAY properties -->
     <tstamp/>
@@ -19,6 +19,14 @@
                 command="${progs.mysql} -h${db.host} -u${db.user} -p${db.pass} -e 'CREATE DATABASE `${db.name}`'"
                 dir="${build.dir}"
                 checkreturn="true" />
+    </target>
+
+    <target name="orm-validate" description="validates the schema with the doctrine mappings">
+        <exec
+                command="php doctrine.php orm:validate-schema --verbose'"
+                dir="${build.dir}"
+                checkreturn="false"
+                passthru="true" />
     </target>
 
     <target name="db-migrate" description="Database Migrations">

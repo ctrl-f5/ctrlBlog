@@ -1,6 +1,6 @@
 <?php
 
-namespace DevCtrl\Domain;
+namespace Ctrl\Blog\Domain;
 
 use \Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
 
