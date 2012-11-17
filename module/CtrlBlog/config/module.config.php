@@ -66,6 +66,7 @@ return array(
     'domain_services' => array(
         'invokables' => array(
             'Article' => 'Ctrl\Blog\Service\ArticleService',
+            'User' => 'Ctrl\Blog\Service\UserService',
         ),
     ),
     'service_manager' => array(

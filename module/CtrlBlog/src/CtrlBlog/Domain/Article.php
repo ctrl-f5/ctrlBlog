@@ -8,11 +8,6 @@ use DateTime;
 class Article extends \Ctrl\Domain\PersistableModel
 {
     /**
-     * @var int
-     */
-    protected $id;
-
-    /**
      * @var string
      */
     protected $title;
@@ -29,6 +24,7 @@ class Article extends \Ctrl\Domain\PersistableModel
 
     public function __construct()
     {
+        $this->dateCreated = new \DateTime('now', new \DateTimeZone('UTC'));
     }
 
     /**
