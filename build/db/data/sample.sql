@@ -10,15 +10,16 @@ INSERT INTO `ctrl_auth_user` (`id`, `username`, `password`, `email`) VALUES
 (1, 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', 'example@example.com');
 
 INSERT INTO `ctrl_auth_role` (`id`, `name`) VALUES
-(1, 'superuser');
+(1, 'superuser'),
+(1, 'guest');
 
 INSERT INTO `ctrl_auth_user_role` (`role_id`, `user_id`) VALUES
 ('1', '1');
 
 INSERT INTO  `ctrl_auth_resource` (`id`, `resource`)VALUES
-(NULL , 'global');
+(1 , 'global');
 
 INSERT INTO  `ctrl_blog`.`ctrl_auth_permission` (`id` , `role_id` , `resource_id` , `isAllowed`) VALUES
-(NULL , '1',  '1',  '1');
+(1 , '1',  '1',  '1');
 
 SET foreign_key_checks = 1;

@@ -65,6 +65,12 @@ class Module
                     }
                 }
                 $view->appMessages = $messages;
+
+                /*
+                 * Add current user
+                 */
+                //$userService = $serviceManager->get('DomainServiceLoader')->get('User');
+                //$userService->getCurrentUser
             }
         });
     }
