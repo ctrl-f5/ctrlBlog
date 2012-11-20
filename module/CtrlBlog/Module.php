@@ -49,6 +49,7 @@ class Module
     protected function initLayout(ServiceLocatorInterface $serviceManager, EventManager $eventManager)
     {
         //feed the flashMessenger vars into the layout
+        /** @var $e \Zend\Mvc\MvcEvent */
         $eventManager->attach(\Zend\Mvc\MvcEvent::EVENT_RENDER, function ($e) {
             $serviceManager = $e->getApplication()->getServiceManager();
             $view = $e->getViewModel();
@@ -71,6 +72,28 @@ class Module
                  */
                 //$userService = $serviceManager->get('DomainServiceLoader')->get('User');
                 //$userService->getCurrentUser
+
+                /*
+                 * compose navigation
+                 */
+                $authNav = $serviceManager->get('CtrlAuthNavigation');
+
+                /** @var $navigation \Zend\Navigation\Navigation */
+                $factory = new \Zend\Navigation\Service\ConstructedNavigationFactory(array());
+                $navigation = $factory->createService($serviceManager);
+                $navigation->addPage(array(
+                    'label' => 'Auth Module',
+                    'route' => 'ctrl_auth',
+                    'pages' => $authNav->getPages(),
+                    'type' => 'Ctrl\Navigation\Page\Mvc',
+                    'router' => $e->getRouter(),
+                    'routeMatch' => $e->getRouteMatch(),
+                ));
+
+                $view->navigation = array(
+                    'main' => $navigation,
+                    'ctrl_auth' => $authNav,
+                );
             }
         });
     }

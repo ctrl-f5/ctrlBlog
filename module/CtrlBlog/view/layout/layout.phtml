@@ -26,12 +26,7 @@
         <div class="navbar-inner">
             <div class="container">
                 <a class="brand" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Dev Ctrl') ?></a>
-                <ul class="nav">
-                    <li class="active"><a href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Home') ?></a></li>
-                    <li class="active"><a href="<?php echo $this->url('default', array(
-                        'controller' => 'item-type',
-                    )) ?>"><?php echo $this->translate('Configuration') ?></a></li>
-                </ul>
+                <?php echo $this->navigation($this->navigation['main'])->menu()->renderMenu(null, array('maxDepth' => 0, 'ulClass' => 'nav')); ?>
                 <ul class="nav pull-right">
                     <li><a href="#"><span class="icon icon-user icon-white"></span>&nbsp;&nbsp;&nbsp;<strong><?php //echo $this->appCurrentUser->getUsername(); ?></strong></a></li>
                     <li class="divider-vertical"></li>
@@ -46,7 +41,14 @@
                 </ul>
             </div>
         </div>
+        <div class="navbar-inner">
+            <div class="container">
+                <?php echo $this->navigation($this->navigation['ctrl_auth'])->menu()->renderMenu(null, array('minDepth' => 1, 'maxDepth' => 1, 'ulClass' => 'nav')); ?>
+            </div>
+        </div>
     </div>
+
+    <br />
 
     <div class="container">
         <?php echo $this->render('ctrl/partial/app-messages.phtml'); ?>
