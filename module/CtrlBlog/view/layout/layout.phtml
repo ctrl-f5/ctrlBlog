@@ -26,7 +26,8 @@
         <div class="navbar-inner">
             <div class="container">
                 <a class="brand" href="<?php echo $this->url('home') ?>"><?php echo $this->translate('Dev Ctrl') ?></a>
-                <?php echo $this->navigation($this->navigation['main'])->menu()->renderMenu(null, array('maxDepth' => 0, 'ulClass' => 'nav')); ?>
+                <?php //var_dump($this->ctrlNavigation($this->navigation['main'])->menu()); ?>
+                <?php echo $this->ctrlNavigation()->menu($this->navigation['main'])->renderMenu(null, array('maxDepth' => 0)); ?>
                 <ul class="nav pull-right">
                     <li><a href="#"><span class="icon icon-user icon-white"></span>&nbsp;&nbsp;&nbsp;<strong><?php //echo $this->appCurrentUser->getUsername(); ?></strong></a></li>
                     <li class="divider-vertical"></li>
@@ -43,7 +44,7 @@
         </div>
         <div class="navbar-inner">
             <div class="container">
-                <?php echo $this->navigation($this->navigation['ctrl_auth'])->menu()->renderMenu(null, array('minDepth' => 1, 'maxDepth' => 1, 'ulClass' => 'nav')); ?>
+                <?php echo $this->ctrlNavigation()->menu($this->navigation['main'])->renderMenu(null, array('minDepth' => 1, 'maxDepth' => 1)); ?>
             </div>
         </div>
     </div>

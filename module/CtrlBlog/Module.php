@@ -89,7 +89,11 @@ class Module
                     'router' => $e->getRouter(),
                     'routeMatch' => $e->getRouteMatch(),
                 ));
-
+                /** @var $navHelper \Ctrl\View\Helper\Navigation\Navigation */
+                $navHelper = $serviceManager->get('ViewHelperManager')->get('CtrlNavigation');
+                $navHelper->setAcl($serviceManager->get('CtrlAuthAcl'));
+                $navHelper->setRoles($serviceManager->get('DomainServiceLoader')->get('CtrlAuthUser')->getAuthenticatedUser()->getRoles()->toArray());
+                $navHelper->setUseAcl(true);
                 $view->navigation = array(
                     'main' => $navigation,
                     'ctrl_auth' => $authNav,
