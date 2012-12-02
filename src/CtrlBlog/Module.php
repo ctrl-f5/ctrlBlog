@@ -1,6 +1,6 @@
 <?php
 
-namespace Ctrl\Blog;
+namespace CtrlBlog;
 
 use Zend\ServiceManager\ServiceLocatorInterface;
 use Zend\EventManager\EventManager;
@@ -96,5 +96,18 @@ class Module
                 ),
             ),
         );
+    }
+
+    public function getRouterConfig()
+    {
+        $config = array('router' => array(
+            'routes' => array(
+                'ctrl_blog' => \Ctrl\Mvc\Router\Http\DefaultSegment::factory(
+                    'CtrlBlog\Controller',
+                    '/blog'
+                ),
+            ),
+        ));
+        return $config;
     }
 }
