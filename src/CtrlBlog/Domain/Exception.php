@@ -1,6 +1,6 @@
 <?php
 
-namespace Ctrl\Blog\Domain;
+namespace CtrlBlog\Domain;
 
 use Ctrl\Domain\PersistableModel;
 

@@ -96,7 +96,7 @@ return array(
             ),
             'orm_default' => array(
                 'drivers' => array(
-                    'Ctrl\Blog\Domain' => 'ctrl-blog_driver'
+                    'CtrlBlog\Domain' => 'ctrl-blog_driver'
                 )
             )
         ),

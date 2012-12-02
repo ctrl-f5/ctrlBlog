@@ -1,9 +1,8 @@
 <?php
 
-namespace Ctrl\Blog\Domain;
+namespace CtrlBlog\Domain;
 
-use \Ctrl\Blog\Domain;
-use Ctrl\Module\Auth\Domain\User as AuthUser;
+use CtrlAuth\Domain\User as AuthUser;
 
 class User extends \Ctrl\Domain\PersistableModel
 {

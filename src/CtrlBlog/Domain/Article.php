@@ -1,8 +1,7 @@
 <?php
 
-namespace Ctrl\Blog\Domain;
+namespace CtrlBlog\Domain;
 
-use \Ctrl\Blog\Domain;
 use DateTime;
 
 class Article extends \Ctrl\Domain\PersistableModel

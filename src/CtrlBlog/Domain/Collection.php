@@ -1,8 +1,8 @@
 <?php
 
-namespace Ctrl\Blog\Domain;
+namespace CtrlBlog\Domain;
 
-use \Doctrine\Common\Collections\ArrayCollection as ArrayCollection;
+use Ctrl\Domain\ArrayCollection as ArrayCollection;
 
 class Collection extends ArrayCollection
 {
