@@ -36,16 +36,6 @@ class Module
         }
     }
 
-    protected function initDoctrine(ServiceLocatorInterface $serviceManager)
-    {
-        /** @var $entityManager \Doctrine\ORM\EntityManager */
-        $entityManager = $serviceManager->get('doctrine.entitymanager.orm_default');
-        $entityManager->getEventManager()->addEventListener(
-            array(\Doctrine\ORM\Events::postLoad),
-            new PostLoadSubscriber($serviceManager)
-        );
-    }
-
     protected function initLayout(ServiceLocatorInterface $serviceManager, EventManager $eventManager)
     {
         //feed the flashMessenger vars into the layout
@@ -72,35 +62,6 @@ class Module
                  */
                 //$userService = $serviceManager->get('DomainServiceLoader')->get('User');
                 //$userService->getCurrentUser
-
-                /*
-                 * compose navigation
-                 */
-                $authNav = $serviceManager->get('CtrlAuthNavigation');
-
-                /** @var $navigation \Zend\Navigation\Navigation */
-                $factory = new \Zend\Navigation\Service\ConstructedNavigationFactory(array());
-                $navigation = $factory->createService($serviceManager);
-                $pageConfig = array(
-                    'label' => 'Auth Module',
-                    'route' => 'ctrl_auth',
-                    'pages' => $authNav->getPages(),
-                    'type' => 'Ctrl\Navigation\Page\Mvc',
-                    'router' => $e->getRouter(),
-                );
-                if ($e->getRouteMatch()) {
-                    $pageConfig['routeMatch'] = $e->getRouteMatch();
-                }
-                $navigation->addPage($pageConfig);
-                /** @var $navHelper \Ctrl\View\Helper\Navigation\Navigation */
-                $navHelper = $serviceManager->get('ViewHelperManager')->get('CtrlNavigation');
-                $navHelper->setAcl($serviceManager->get('CtrlAuthAcl'));
-                $navHelper->setRoles($serviceManager->get('DomainServiceLoader')->get('CtrlAuthUser')->getAuthenticatedUser()->getRoles()->toArray());
-                $navHelper->setUseAcl(true);
-                $view->navigation = array(
-                    'main' => $navigation,
-                    'ctrl_auth' => $authNav,
-                );
             }
         });
     }
