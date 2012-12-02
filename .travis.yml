@@ -5,7 +5,7 @@ php:
 
 before_install: 
   - curl -s https://getcomposer.org/installer | php -- --quiet
-  - php composer.phar install
+  - php composer.phar install --verbose
   - cd tests
 
 script: phpunit --verbose
