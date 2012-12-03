@@ -69,10 +69,15 @@ class Article extends \Ctrl\Domain\PersistableModel
     }
 
     /**
+     * @param bool $asHtml parse markdown to html
      * @return string
      */
-    public function getContent()
+    public function getContent($asHtml = false)
     {
+        if ($asHtml) {
+            $parser = new \Markdown\Text($this->content);
+            return $parser->getHtml();
+        }
         return $this->content;
     }
 }

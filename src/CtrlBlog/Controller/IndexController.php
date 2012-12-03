@@ -33,5 +33,9 @@ class IndexController extends AbstractController
     public function indexAction()
     {
         $service = $this->getDomainService('CtrlBlogArticle');
+
+        return new ViewModel(array(
+            'articles' => $service->getAll(),
+        ));
     }
 }
