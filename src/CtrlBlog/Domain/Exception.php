@@ -4,7 +4,7 @@ namespace CtrlBlog\Domain;
 
 use Ctrl\Domain\PersistableModel;
 
-class Exception extends \Ctrl\Blog\Exception
+class Exception extends \CtrlBlog\Exception
 {
 
 }

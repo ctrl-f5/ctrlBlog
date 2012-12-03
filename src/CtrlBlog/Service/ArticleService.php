@@ -1,9 +1,9 @@
 <?php
 
-namespace Ctrl\Blog\Service;
+namespace CtrlBlog\Service;
 
-use \Ctrl\Blog\Domain;
-use Ctrl\Blog\Domain\Article;
+use CtrlBlog\Domain;
+use CtrlBlog\Domain\Article;
 use Ctrl\Form\Form;
 use Zend\InputFilter\Factory as FilterFactory;
 use Zend\InputFilter\InputFilter;
@@ -13,11 +13,11 @@ use Ctrl\Form\Element\Select as SelectInput;
 
 class ArticleService extends \Ctrl\Service\AbstractDomainModelService
 {
-    protected $entity = 'Ctrl\Blog\Domain\Article';
+    protected $entity = 'CtrlBlog\Domain\Article';
 
     public function getForm(Article $user = null)
     {
-        $form = new \Ctrl\Blog\Form\Article\Edit('article');
+        $form = new \CtrlBlog\Form\Article\Edit('article');
         if ($user) $form->loadModel($user);
 
         return $form;

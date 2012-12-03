@@ -1,1 +1,16 @@
-<?php echo $this->pageTitle('Blog/Index/index'); ?>
+<?php /** @var $this \Ctrl\View\PhpView */ ?>
+<?php echo $this->pageTitle('Articles'); ?>
+<div class="btn-toolbar">
+    <div class="btn-group pull-right">
+        <?php echo $this->ctrlButton('link', array(
+        'value' => 'add article',
+        'url' => $this->url('ctrl_blog', array('controller' => 'article', 'action' => 'edit'))
+        ), 'primary') ?>
+        <?php echo $this->ctrlButton('link', array(
+        'value' => 'manage articles',
+        'url' => $this->url('ctrl_blog', array('controller' => 'article', 'action' => 'index'))
+    )) ?>
+    </div>
+</div>
+<div class="clearfix"></div>
+

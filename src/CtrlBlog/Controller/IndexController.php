@@ -1,6 +1,6 @@
 <?php
 
-namespace Ctrl\Blog\Controller;
+namespace CtrlBlog\Controller;
 
 use Ctrl\Controller\AbstractController;
 use Zend\View\Model\ViewModel;
@@ -32,7 +32,6 @@ class IndexController extends AbstractController
 
     public function indexAction()
     {
-        $service = $this->getDomainService('Article');
-        var_dump($service->getAll());
+        $service = $this->getDomainService('CtrlBlogArticle');
     }
 }

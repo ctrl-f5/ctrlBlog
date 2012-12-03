@@ -1,13 +1,10 @@
 SET foreign_key_checks = 0;
 
 INSERT INTO  `ctrl_auth_resource` (`id`, `resource`)VALUES
-(101 , 'routes.CtrlBlog\\Controller\\Index'),
-(102 , 'routes.CtrlBlog\\Controller\\Article');
+(101 , 'routes.CtrlBlog\\Controller');
 
 INSERT INTO  `ctrl_auth_permission` (`id` , `role_id` , `resource_id` , `isAllowed`) VALUES
 (NULL , '1',  '101',  '1'),
-(NULL , '1',  '101',  '1'),
-(NULL , '2',  '101',  '1'),
 (NULL , '2',  '101',  '1');
 
 INSERT INTO `ctrl_blog_article` (`id`, `title`, `content`, `dateCreated`) VALUES

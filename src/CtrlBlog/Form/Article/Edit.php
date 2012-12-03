@@ -1,9 +1,9 @@
 <?php
 
-namespace Ctrl\Blog\Form\Article;
+namespace CtrlBlog\Form\Article;
 
-use \Ctrl\Blog\Domain;
-use Ctrl\Blog\Domain\Article;
+use \CtrlBlog\Domain;
+use CtrlBlog\Domain\Article;
 use Ctrl\Form\Form;
 use Zend\InputFilter\Factory as FilterFactory;
 use Zend\InputFilter\InputFilter;
@@ -18,7 +18,7 @@ class Edit extends \Ctrl\Form\Form
     const ELEM_TITLE = 'title';
     const ELEM_CONTENT = 'content';
 
-    protected $entity = 'Ctrl\Blog\Domain\Article';
+    protected $entity = 'CtrlBlog\Domain\Article';
 
     public function __construct($name = null)
     {
@@ -38,7 +38,7 @@ class Edit extends \Ctrl\Form\Form
         $this->setInputFilter($this->getInputFilter());
     }
 
-    public function loadModel(Article $article)
+    public function loadModel(\Ctrl\Domain\Model $article)
     {
         $this->elements[self::ELEM_TITLE]->setValue($article->getTitle());
         $this->elements[self::ELEM_CONTENT]->setValue($article->getContent());

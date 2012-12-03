@@ -1,8 +1,8 @@
 <?php
 
-namespace Ctrl\Blog\Controller;
+namespace CtrlBlog\Controller;
 
-use Ctrl\Blog\Domain\Article;
+use CtrlBlog\Domain\Article;
 use Ctrl\Controller\AbstractController;
 use Zend\View\Model\ViewModel;
 
@@ -10,8 +10,8 @@ class ArticleController extends AbstractController
 {
     public function indexAction()
     {
-        /** @var $service \Ctrl\Blog\Service\ArticleService */
-        $service = $this->getDomainService('Article');
+        /** @var $service \CtrlBlog\Service\ArticleService */
+        $service = $this->getDomainService('CtrlBlogArticle');
 
         return new ViewModel(array(
             'articles' => $service->getAll()
@@ -20,22 +20,25 @@ class ArticleController extends AbstractController
 
     public function editAction()
     {
-        /** @var $service \Ctrl\Blog\Service\ArticleService */
-        $service = $this->getDomainService('Article');
+        /** @var $service \CtrlBlog\Service\ArticleService */
+        $service = $this->getDomainService('CtrlBlogArticle');
         /** @var $article Article */
-        $article = $service->getById($this->params()->fromRoute('id'));
+        if ($this->params()->fromRoute('id')) {
+            $article = $service->getById($this->params()->fromRoute('id'));
+        } else {
+            $article = new Article();
+        }
 
         $form = $service->getForm($article);
         $form->setAttribute('method', 'post');
 
-        $form->setAttribute('action', $this->url()->fromRoute('default/id', array(
+        $form->setAttribute('action', $this->url()->fromRoute('ctrl_blog/id', array(
             'controller' => 'article',
             'action' => 'edit',
             'id' => $article->getId()
         )));
-        $form->setReturnUrl($this->url()->fromRoute('default', array(
+        $form->setReturnUrl($this->url()->fromRoute('ctrl_blog', array(
             'controller' => 'article',
-            'action' => 'index',
         )));
 
         if ($this->getRequest()->isPost()) {
@@ -45,7 +48,7 @@ class ArticleController extends AbstractController
                 $article->setTitle($elems[$form::ELEM_TITLE]->getValue());
                 $article->setContent($elems[$form::ELEM_CONTENT]->getValue());
                 $service->persist($article);
-                return $this->redirect()->toUrl('/article/index');
+                return $this->redirect()->toUrl($form->getReturnurl());
             }
         }
 

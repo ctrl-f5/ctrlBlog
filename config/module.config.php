@@ -1,77 +1,18 @@
 <?php
 
-namespace Ctrl\Blog;
+namespace CtrlBlog;
 
 return array(
-    'router' => array(
-        'routes' => array(
-            'default' => array(
-                'type'    => 'Segment',
-                'may_terminate' => true,
-                'options' => array(
-                    'route'    => '/[:controller]/[:action]',
-                    'constraints' => array(
-                        'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
-                    ),
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'CtrlBlog\Controller',
-                        'controller'    => 'index',
-                        'action'        => 'index',
-                        'id'            => false
-                    ),
-                ),
-                'child_routes' => array(
-                    'id' => array(
-                        'type'    => 'Segment',
-                        'may_terminate' => true,
-                        'options' => array(
-                            'route'    => '/[:id]',
-                            'constraints' => array(
-                                'id'     => '[0-9]+',
-                            ),
-                        ),
-                        'child_routes' => array(
-                            'query' => array(
-                                'type'    => 'Query',
-                                'may_terminate' => true,
-                            ),
-                        ),
-                    ),
-                    'query' => array(
-                        'type'    => 'Query',
-                        'may_terminate' => true,
-                    ),
-                ),
-            ),
-            'home' => array(
-                'type'    => 'Segment',
-                'may_terminate' => true,
-                'options' => array(
-                    'route'    => '/',
-                    'defaults' => array(
-                        '__NAMESPACE__' => 'Ctrl\Blog\Controller',
-                        'controller'    => 'Index',
-                        'action'        => 'index',
-                    ),
-                ),
-            ),
-        ),
-    ),
     'controllers' => array(
         'invokables' => array(
-            'Ctrl\Blog\Controller\Index' => 'Ctrl\Blog\Controller\IndexController',
-            'Ctrl\Blog\Controller\Article' => 'Ctrl\Blog\Controller\ArticleController',
+            'CtrlBlog\Controller\Index' => 'CtrlBlog\Controller\IndexController',
+            'CtrlBlog\Controller\Article' => 'CtrlBlog\Controller\ArticleController',
         ),
     ),
     'domain_services' => array(
         'invokables' => array(
-            'Article' => 'Ctrl\Blog\Service\ArticleService',
-            'User' => 'Ctrl\Blog\Service\UserService',
-        ),
-    ),
-    'service_manager' => array(
-        'factories' => array(
-            //'PropertyTypeLoader'        => 'DevCtrl\Domain\Item\Property\Type\TypeLoaderFactory',
+            'CtrlBlogArticle' => 'CtrlBlog\Service\ArticleService',
+            'CtrlBlogUser' => 'CtrlBlog\Service\UserService',
         ),
     ),
     'view_manager' => array(
@@ -84,7 +25,7 @@ return array(
     ),
     'acl' => array(
         'resources' => array(
-            //'BlogResources' => 'Ctrl\Blog\Permissions\ModuleResources'
+            //'CtrlBlogResources' => 'CtrlBlog\Permissions\ModuleResources'
         )
     ),
     'doctrine' => array(
@@ -100,6 +41,24 @@ return array(
                 )
             )
         ),
+    ),
+    'navigation' => array(
+        'ctrl_blog' => array(
+            array(
+                'label' => 'articles',
+                'route' => 'ctrl_blog',
+                'type' => 'Ctrl\Navigation\Page\Mvc',
+                'resource' => 'routes.CtrlBlog\Controller',
+            ),
+            array(
+                'label' => 'manage articles',
+                'route' => 'ctrl_blog',
+                'type' => 'Ctrl\Navigation\Page\Mvc',
+                'resource' => 'routes.CtrlBlog\Controller',
+                'params' => array(
+                    'controller' => 'article'
+                ),
+            ),
+        )
     )
-
 );

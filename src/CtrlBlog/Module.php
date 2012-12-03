@@ -23,7 +23,11 @@ class Module
 
     public function getConfig()
     {
-        return include __DIR__ . '/../../config/module.config.php';
+
+        return array_merge(
+            $this->getRouterConfig(),
+            include __DIR__ . '/../../config/module.config.php'
+        );
     }
 
     public function getAutoloaderConfig()
@@ -33,6 +37,15 @@ class Module
                 'namespaces' => array(
                     __NAMESPACE__ => __DIR__.'/../../src/CtrlBlog/',
                 ),
+            ),
+        );
+    }
+
+    public function getServiceConfig()
+    {
+        return array(
+            'factories' => array(
+                'CtrlBlogNavigation' => 'CtrlBlog\Navigation\BlogNavigationFactory',
             ),
         );
     }

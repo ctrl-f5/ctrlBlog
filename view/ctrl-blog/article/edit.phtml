@@ -3,7 +3,7 @@ echo $this->pageTitle('Edit item', $article->getTitle());
 
 /** @var $elems \Ctrl\Form\Element\Element[] */
 $elems = $form->getElements();
-$content = $elems[\Ctrl\Blog\Form\Article\Edit::ELEM_CONTENT];
+$content = $elems[\CtrlBlog\Form\Article\Edit::ELEM_CONTENT];
 $content->setAttribute('id', 'article-edit-content');
 $content->setAttribute('rows', '25');
 echo $this->ctrlForm()->createForm(

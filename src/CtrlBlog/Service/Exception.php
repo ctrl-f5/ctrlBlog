@@ -1,8 +1,8 @@
 <?php
 
-namespace Ctrl\Blog\Service;
+namespace CtrlBlog\Service;
 
-use Ctrl\Blog\Exception as BlogException;
+use CtrlBlog\Exception as BlogException;
 
 class Exception extends BlogException
 {

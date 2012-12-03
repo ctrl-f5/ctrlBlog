@@ -1,6 +1,6 @@
 <?php
 
-namespace Ctrl\Blog\Controller;
+namespace CtrlBlog\Controller;
 
 use Ctrl\Controller\AbstractController as Controller;
 use Zend\View\Model\ViewModel;
@@ -14,7 +14,7 @@ abstract class AbstractController extends Controller
     }
 
     /**
-     * @return \Ctrl\Blog\Domain\User
+     * @return \CtrlBlog\Domain\User
      */
     public function getCurrentUser()
     {
