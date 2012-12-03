@@ -20,6 +20,10 @@
         {
             "type": "git",
             "url": "http://github.com/ctrl-f5/ctrlAuth"
+        },
+        {
+            "type": "git",
+            "url": "http://github.com/ctrl-f5/markdown-oo-php"
         }
     ],
     "minimum-stability": "dev",
@@ -27,7 +31,8 @@
         "php": ">=5.3.3",
         "zendframework/zendframework": "dev-master",
         "ctrl-f5/ctrllib": "dev-master",
-        "ctrl-f5/ctrlAuth": "dev-master"
+        "ctrl-f5/ctrlAuth": "dev-master",
+        "ctrl-f5/markdown-oo-php": "dev-master"
     },
     "extra": {
         "installer-paths": {
