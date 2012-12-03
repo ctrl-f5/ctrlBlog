@@ -32,7 +32,7 @@
         "zendframework/zendframework": "dev-master",
         "ctrl-f5/ctrllib": "dev-master",
         "ctrl-f5/ctrlAuth": "dev-master",
-        "ctrl-f5/markdown-oo-php": "dev-master"
+        "ctrl-f5/markdown-oo-php": "dev-master#2efa6ba"
     },
     "extra": {
         "installer-paths": {
