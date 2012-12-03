@@ -57,4 +57,13 @@ class ArticleController extends AbstractController
             'form' => $form
         ));
     }
+
+    public function renderMarkdownAction()
+    {
+        if ($this->getRequest()->isPost()) {
+            $parser = new \Markdown\Text($this->params()->fromPost('markdown'));
+            return $this->response->setContent($parser->getHtml());
+        }
+        return $this->response->setStatusCode('200');
+    }
 }
