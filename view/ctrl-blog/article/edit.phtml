@@ -15,11 +15,11 @@ echo $this->ctrlForm()->start($form->setLabel('Please make your changes'));
 <!--    <div class="btn-group pull-right">-->
 <!--        --><?php //echo $this->ctrlButton('link', array(
 //        'value' => 'add article',
-//        'url' => $this->url('ctrl_blog', array('controller' => 'article', 'action' => 'edit'))
+//        'url' => $this->url('ctrl_blog/default', array('controller' => 'article', 'action' => 'edit'))
 //    ), 'primary') ?>
 <!--        --><?php //echo $this->ctrlButton('link', array(
 //        'value' => 'manage articles',
-//        'url' => $this->url('ctrl_blog', array('controller' => 'article', 'action' => 'index'))
+//        'url' => $this->url('ctrl_blog/default', array('controller' => 'article', 'action' => 'index'))
 //    )) ?>
 <!--    </div>-->
 <!--</div>-->
@@ -69,7 +69,7 @@ $(function () {
     function renderContent(src) {
         var dest = $('#article-edit-content-representation');
         $.ajax({
-            url: '<?php echo $this->url('ctrl_blog', array(
+            url: '<?php echo $this->url('ctrl_blog/default', array(
                 'controller' => 'article',
                 'action' => 'render-markdown',
             )); ?>',

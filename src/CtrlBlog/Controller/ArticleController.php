@@ -32,12 +32,12 @@ class ArticleController extends AbstractController
         $form = $service->getForm($article);
         $form->setAttribute('method', 'post');
 
-        $form->setAttribute('action', $this->url()->fromRoute('ctrl_blog/id', array(
+        $form->setAttribute('action', $this->url()->fromRoute('ctrl_blog/default/id', array(
             'controller' => 'article',
             'action' => 'edit',
             'id' => $article->getId()
         )));
-        $form->setReturnUrl($this->url()->fromRoute('ctrl_blog', array(
+        $form->setReturnUrl($this->url()->fromRoute('ctrl_blog/default', array(
             'controller' => 'article',
         )));
 

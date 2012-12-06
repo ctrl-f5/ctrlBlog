@@ -4,7 +4,7 @@
     <div class="btn-group pull-right">
         <?php echo $this->ctrlButton('link', array(
         'value' => 'add article',
-        'url' => $this->url('ctrl_blog', array('controller' => 'article', 'action' => 'edit'))
+        'url' => $this->url('ctrl_blog/default', array('controller' => 'article', 'action' => 'edit'))
         ), 'primary') ?>
     </div>
 </div>
@@ -22,7 +22,7 @@
         <td><?php echo $a->getTitle(); ?></td>
         <td>
             <?php echo $this->ctrlButton('link', array('value' => 'edit',
-            'href' => $this->url('ctrl_blog/id', array(
+            'href' => $this->url('ctrl_blog/default/id', array(
                 'controller' => 'article',
                 'action' => 'edit',
                 'id' => $a->getId()

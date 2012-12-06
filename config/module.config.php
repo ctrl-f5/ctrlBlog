@@ -46,13 +46,13 @@ return array(
         'ctrl_blog' => array(
             array(
                 'label' => 'articles',
-                'route' => 'ctrl_blog',
+                'route' => 'ctrl_blog/default',
                 'type' => 'Ctrl\Navigation\Page\Mvc',
                 'resource' => 'routes.CtrlBlog\Controller',
             ),
             array(
                 'label' => 'manage articles',
-                'route' => 'ctrl_blog',
+                'route' => 'ctrl_blog/default',
                 'type' => 'Ctrl\Navigation\Page\Mvc',
                 'resource' => 'routes.CtrlBlog\Controller',
                 'params' => array(
