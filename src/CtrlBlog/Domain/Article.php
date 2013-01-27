@@ -14,6 +14,11 @@ class Article extends \Ctrl\Domain\PersistableModel
     /**
      * @var string
      */
+    protected $slug;
+
+    /**
+     * @var string
+     */
     protected $content;
 
     /**
@@ -28,7 +33,7 @@ class Article extends \Ctrl\Domain\PersistableModel
 
     /**
      * @param string $title
-     * @return Item
+     * @return Artile
      */
     public function setTitle($title)
     {
@@ -42,6 +47,24 @@ class Article extends \Ctrl\Domain\PersistableModel
     public function getTitle()
     {
         return $this->title;
+    }
+
+    /**
+     * @param string $slug
+     * @return Article
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getSlug()
+    {
+        return $this->slug;
     }
 
     /**
@@ -62,10 +85,12 @@ class Article extends \Ctrl\Domain\PersistableModel
 
     /**
      * @param string $content
+     * @return Article
      */
     public function setContent($content)
     {
         $this->content = $content;
+        return $this;
     }
 
     /**

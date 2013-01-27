@@ -46,6 +46,7 @@ class ArticleController extends AbstractController
             if ($form->isValid()) {
                 $elems = $form->getElements();
                 $article->setTitle($elems[$form::ELEM_TITLE]->getValue());
+                $article->setSlug($elems[$form::ELEM_SLUG]->getValue());
                 $article->setContent($elems[$form::ELEM_CONTENT]->getValue());
                 $service->persist($article);
                 return $this->redirect()->toUrl($form->getReturnurl());

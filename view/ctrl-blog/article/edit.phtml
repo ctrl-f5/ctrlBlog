@@ -5,6 +5,7 @@ echo $this->pageTitle('Edit item', $article->getTitle());
 /** @var $elems \Ctrl\Form\Element\Element[] */
 $elems = $form->getElements();
 $title = $elems[\CtrlBlog\Form\Article\Edit::ELEM_TITLE];
+$slug = $elems[\CtrlBlog\Form\Article\Edit::ELEM_SLUG];
 $content = $elems[\CtrlBlog\Form\Article\Edit::ELEM_CONTENT];
 $content->setAttribute('id', 'article-edit-content');
 $content->setAttribute('width', '80');
@@ -26,19 +27,31 @@ echo $this->ctrlForm()->start($form->setLabel('Please make your changes'));
 <!--<div class="clearfix"></div>-->
 
 <div class="row">
-    <div class="span6">
+    <div class="span2">
         <label>Article title</label>
     </div>
-    <div class="span6">
+    <div class="span4">
+        <?php echo $this->ctrlFormInput($title, array('bare' => true)); ?>
+    </div>
+    <div class="span2">
         <label>URL slug</label>
+    </div>
+    <div class="span4">
+        <?php echo $this->ctrlFormInput($slug, array('bare' => true)); ?>
     </div>
 </div>
 <div class="row">
-    <div class="span6">
-        <?php echo $this->ctrlFormInput($title, array('bare' => true)); ?>
-    </div>
-    <div class="span6">
-        <?php echo $this->ctrlFormInput($title, array('bare' => true)); ?>
+    <div class="span12">
+        <?php
+        foreach ($form->getArticleTools() as $tool) {
+            echo $this->ctrlButton('link', array(
+                'value' => $tool->getLabel(),
+                'href' => '#'.$tool->getId(),
+                'class' => 'article-tool-btn',
+                'tool-id' => $tool->getId(),
+            ));
+        }
+        ?>
     </div>
 </div>
 <div class="row article-text-editor-preview">
@@ -62,30 +75,92 @@ echo $this->ctrlForm()->start($form->setLabel('Please make your changes'));
     </div>
 </div>
 
+<div id="article-edit-tools" style="display: none">
+    <ul class="nav nav-tabs">
+        <?php
+        foreach ($form->getArticleTools() as $tool) :
+        ?>
+            <li><a href="<?php echo '#'.$tool->getId(); ?>" data-toggle="tab"><?php echo $tool->getLabel(); ?></a></li>
+        <?php
+        endforeach;
+        ?>
+    </ul>
+    <div class="tab-content">
+        <?php
+        foreach ($form->getArticleTools() as $tool) :
+        ?>
+            <div class="tab-pane" id="<?php echo $tool->getId(); ?>">testestest</div>
+        <?php
+        endforeach;
+        ?>
+    </div>
+</div>
+
 <?php echo $this->ctrlForm()->end($form, true); ?>
 <script type="text/javascript">
 $(function () {
-    var article = $('textarea#article-edit-<?php echo \CtrlBlog\Form\Article\Edit::ELEM_CONTENT; ?>');
-    function renderContent(src) {
-        var dest = $('#article-edit-content-representation');
-        $.ajax({
-            url: '<?php echo $this->url('ctrl_blog/default', array(
-                'controller' => 'article',
-                'action' => 'render-markdown',
-            )); ?>',
-            type: 'POST',
-            data: {
-                format: 'html',
-                markdown: src
-            },
-            success: function (result) {
-                dest.html(result);
-                article.css({ minHeight: (dest.height()+150)+'px' });
+    function ArticleEditForm(form)
+    {
+        var self = this;
+        self.form = $(form);
+        self.article = $(form).find('textarea#article-edit-<?php echo \CtrlBlog\Form\Article\Edit::ELEM_CONTENT; ?>').first();
+        self.dialogs = {};
+        self.buttons = $('a.article-tool-btn');
+        self.articlePreviewLocked = false;
+
+        self.renderArticlePreview = function (src) {
+            var dest = $('#article-edit-content-representation');
+            self.articlPreviewLocked = true;
+            $.ajax({
+                url: '<?php echo $this->url('ctrl_blog/default', array(
+                    'controller' => 'article',
+                    'action' => 'render-markdown',
+                )); ?>',
+                type: 'POST',
+                data: {
+                    format: 'html',
+                    markdown: src
+                },
+                success: function (result) {
+                    dest.html(result);
+                    self.article.css({ minHeight: (dest.height()+100)+'px' });
+                },
+                complete: function () {
+                    self.articlPreviewLocked = false;
+                }
+            });
+        };
+
+        self.showToolDialog = function () {
+            if (self.dialogs.tools == undefined) {
+                self.dialogs.tools = CtrlJs.Dialogs.newDialog('Article tools', $('#article-edit-tools').html());
+                $('#article-edit-tools').remove();
+                self.dialogs.tools.find('.nav-tabs a').click(function (e) {
+                    e.preventDefault();
+                    $(this).tab('show');
+                });
             }
-        });
+            self.dialogs.tools.modal('show');
+        };
+
+        self.showArticleTool = function (toolId) {
+            self.showToolDialog();
+            self.dialogs.tools.find('.nav-tabs a[href="#'+toolId+'"]').tab('show');
+        };
+
+        //construct
+        (function init(){
+            // render article preview with interval
+            // includes check to not stack if busy
+            setInterval(function () {
+                if (!self.articlePreviewLocked) self.renderArticlePreview(self.article.val());
+            }, 2000);
+            self.buttons.click(function () {
+                self.showArticleTool($(this).attr('tool-id'));
+            });
+        })();
     }
-    setInterval(function () {
-        renderContent(article.val());
-    }, 2000);
+
+    var form = new ArticleEditForm('form#article-edit');
 });
 </script>
