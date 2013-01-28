@@ -46,6 +46,7 @@ class Module
         return array(
             'factories' => array(
                 'CtrlBlogNavigation' => 'CtrlBlog\Navigation\BlogNavigationFactory',
+                'CtrlBlogArticleToolManager' => 'CtrlBlog\\Form\\Article\\Tool\\ToolManagerFactory',
             ),
         );
     }

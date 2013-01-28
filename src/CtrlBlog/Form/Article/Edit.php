@@ -21,7 +21,10 @@ class Edit extends \Ctrl\Form\Form
 
     protected $entity = 'CtrlBlog\Domain\Article';
 
-    protected $articleTools = array();
+    /**
+     * @var \CtrlBlog\Form\Article\Tool\ToolManager
+     */
+    protected $articleToolManager = array();
 
     public function __construct($name = null)
     {
@@ -43,28 +46,45 @@ class Edit extends \Ctrl\Form\Form
         $this->add($input);
 
         $this->setInputFilter($this->getInputFilter());
+    }
 
-        $urlTool = new Tool();
-        $urlTool->setLabel('url')->setTitle('Generate URL')->setUrl('#')->setId('url');
-        $this->articleTools[] = $urlTool;
-        $imgTool = new Tool();
-        $imgTool->setLabel('img')->setTitle('Insert image')->setUrl('#')->setId('img');
-        $this->articleTools[] = $imgTool;
+    public function getArticleToolManager()
+    {
+        if (!($this->articleToolManager instanceof \CtrlBlog\Form\Article\Tool\ToolManager)) {
+            //$this->articleToolManager = new \CtrlBlog\Form\Article\Tool\ToolManager($this->get);
+        }
+        return $this->articleToolManager;
+    }
+
+    public function setArticleToolManager(\CtrlBlog\Form\Article\Tool\ToolManager $manager)
+    {
+        $this->articleToolManager = $manager;
     }
 
     public function getArticleTools()
     {
-        return $this->articleTools;
+        return array(
+            $this->getArticleToolManager()->get('url'),
+            $this->getArticleToolManager()->get('img'),
+        );
     }
 
     /**
      * @param \Ctrl\Domain\Model|Article $article
+     * @throws \CtrlBlog\Exception
      */
     public function loadModel(\Ctrl\Domain\Model $article)
     {
+        if (!($article instanceof Article)) {
+            throw new \CtrlBlog\Exception('explecting instance of \\Ctrl\\Domain\\Article got '.get_class($article));
+        }
         $this->elements[self::ELEM_TITLE]->setValue($article->getTitle());
         $this->elements[self::ELEM_CONTENT]->setValue($article->getContent());
         $this->elements[self::ELEM_SLUG]->setValue($article->getSlug());
+
+        foreach ($this->getArticleTools() as $tool) {
+            $tool->setArticle($article);
+        }
     }
 
     public function getInputFilter()

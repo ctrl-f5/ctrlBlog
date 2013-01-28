@@ -18,6 +18,7 @@ class ArticleService extends \Ctrl\Service\AbstractDomainModelService
     public function getForm(Article $article = null)
     {
         $form = new \CtrlBlog\Form\Article\Edit('article');
+        $form->setArticleToolManager($this->getServiceLocator()->get('CtrlBlogArticleToolManager'));
         if ($article) $form->loadModel($article);
 
         return $form;

@@ -89,7 +89,11 @@ echo $this->ctrlForm()->start($form->setLabel('Please make your changes'));
         <?php
         foreach ($form->getArticleTools() as $tool) :
         ?>
-            <div class="tab-pane" id="<?php echo $tool->getId(); ?>">testestest</div>
+            <div class="tab-pane" id="<?php echo $tool->getId(); ?>"><?php echo $this->render($tool->getTemplate(), array(
+                'article' => $article,
+                'form' => $form,
+                'tool' => $tool,
+            )); ?></div>
         <?php
         endforeach;
         ?>
