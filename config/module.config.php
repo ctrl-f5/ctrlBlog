@@ -25,7 +25,7 @@ return array(
     ),
     'acl' => array(
         'resources' => array(
-            //'CtrlBlogResources' => 'CtrlBlog\Permissions\ModuleResources'
+            'CtrlBlogResources' => 'CtrlBlog\Permissions\Resources'
         )
     ),
     'doctrine' => array(
@@ -48,13 +48,13 @@ return array(
                 'label' => 'articles',
                 'route' => 'ctrl_blog/default',
                 'type' => 'Ctrl\Navigation\Page\Mvc',
-                'resource' => 'routes.CtrlBlog\Controller',
+                'resource' => 'menu.CtrlBlog',
             ),
             array(
                 'label' => 'manage articles',
                 'route' => 'ctrl_blog/default',
                 'type' => 'Ctrl\Navigation\Page\Mvc',
-                'resource' => 'routes.CtrlBlog\Controller',
+                'resource' => 'menu.CtrlBlog.Article.manage',
                 'params' => array(
                     'controller' => 'article'
                 ),
